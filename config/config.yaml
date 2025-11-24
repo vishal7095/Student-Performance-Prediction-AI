@@ -1,0 +1,80 @@
+# Project Configuration
+project:
+  name: "Student Performance Predictor"
+  version: "1.0.0"
+  description: "ML system to predict student performance with feedback integration"
+
+# Data Configuration
+data:
+  raw_path: "data/raw/student_data.csv"
+  processed_path: "data/processed/cleaned_student_data.csv"
+  feedback_path: "data/feedback/feedback_data.csv"
+
+  # Data generation parameters
+  generation:
+    num_students: 1000
+    random_seed: 42
+    features:
+      attendance:
+        min: 60
+        max: 100
+      study_hours:
+        min: 1
+        max: 10
+      assignment_score:
+        min: 50
+        max: 100
+      previous_score:
+        min: 50
+        max: 95
+      participation:
+        min: 1
+        max: 10
+
+# Model Configuration
+model:
+  save_path: "models/trained_models/best_model.pkl"
+  scaler_path: "models/trained_models/scaler.pkl"
+  feature_names_path: "models/trained_models/feature_names.pkl"
+
+  # Training parameters
+  training:
+    test_size: 0.2
+    random_state: 42
+    cv_folds: 5
+
+  # Model parameters
+  algorithms:
+    linear_regression:
+      fit_intercept: true
+    random_forest:
+      n_estimators: 100
+      max_depth: 10
+      random_state: 42
+    gradient_boosting:
+      n_estimators: 100
+      learning_rate: 0.1
+      max_depth: 6
+
+# Evaluation Metrics
+evaluation:
+  metrics: ["r2", "mae", "mse", "rmse"]
+  threshold:
+    r2: 0.7
+    mae: 5.0
+
+# Feedback System
+feedback:
+  collection_interval: 7 # days
+  min_feedback_for_retrain: 10
+  feedback_weights:
+    teacher: 2.0
+    student: 1.0
+    self: 0.5
+
+# Web Application
+app:
+  host: "0.0.0.0"
+  port: 5000
+  debug: true
+  secret_key: "student_performance_predictor_secret"
